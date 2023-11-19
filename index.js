@@ -1,6 +1,9 @@
-import puppeteer from 'puppeteer';
 import ProductModel from './ProductModel.js';
 import fs from 'fs';
+import puppeteer from 'puppeteer-extra'
+import StealthPlugin from 'puppeteer-extra-plugin-stealth'
+
+puppeteer.use(StealthPlugin())
 
 let searchFor = 'iphone 11';
 let searchForFriendly = searchFor.trim().replaceAll(' ', '%20');
@@ -8,7 +11,7 @@ const products = [];
 (async () => {
   // Launch the browser and open a new blank page
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: 'new',
     userDataDir: "./tmp"
   });
   const page = await browser.newPage();
